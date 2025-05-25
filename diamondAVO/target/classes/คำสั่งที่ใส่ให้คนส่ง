@@ -1,0 +1,4 @@
+/avodiamond sco add <จำนวน> {username}
+/avodiamond sco remove <จำนวน> {username}
+/avodiamond sco reset {username}
+(ถ้ามี {username} จะแสดงข้อความ)"

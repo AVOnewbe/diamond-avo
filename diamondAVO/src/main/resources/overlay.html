@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiamondAVO Overlay</title>
+    <style>
+        @font-face {
+            font-family: 'Komika Axis';
+            src: url('/fonts/KOMIKAX_.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #00FF00; /* สีเขียวสำหรับ Green Screen */
+            font-family: 'Komika Axis', sans-serif; /* เปลี่ยนมาใช้ Komika Axis */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #score-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #score, #win-score {
+            font-size: 72px; /* ขนาดตัวเลข */
+            color: {OVERLAY_COLOR}; /* สีจาก config.yml */
+            -webkit-text-stroke: 2px {SHADOW_COLOR}; /* ขอบคมชัดรอบตัวเลข */
+            width: 300px; /* เพิ่มความกว้างให้รองรับตัวเลข 6 หลัก (เช่น 999999) */
+            text-align: right; /* จัดตัวเลขด้านซ้ายให้ชิดขวา */
+            overflow: visible; /* ให้ตัวเลขที่ยาวเกินแสดงผลได้ */
+            white-space: nowrap; /* ป้องกันการขึ้นบรรทัดใหม่ */
+        }
+        #win-score {
+            text-align: left; /* จัดตัวเลขด้านขวาให้ชิดซ้าย */
+        }
+        #slash {
+            font-size: 72px; /* ขนาดเครื่องหมาย / */
+            color: {OVERLAY_COLOR}; /* สีจาก config.yml */
+            -webkit-text-stroke: 2px {SHADOW_COLOR}; /* ขอบคมชัดรอบเครื่องหมาย / */
+            margin: 0 15px; /* ระยะห่างระหว่างตัวเลข */
+            width: 30px; /* ความกว้างของเครื่องหมาย / */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="score-container">
+    <span id="score">0</span>
+    <span id="slash">/</span>
+    <span id="win-score">60</span>
+</div>
+
+<script>
+    let lastUpdate = 0;
+    const updateInterval = 100; // อัพเดททุก 100ms
+
+    function fetchScore() {
+        fetch('/score')
+            .then(response => response.text())
+            .then(data => {
+                const [score, winScore] = data.split('/');
+                document.getElementById('score').innerText = score;
+                document.getElementById('win-score').innerText = winScore;
+            })
+            .catch(error => console.error('Error fetching score:', error));
+    }
+
+    function updateLoop(timestamp) {
+        if (timestamp - lastUpdate >= updateInterval) {
+            fetchScore();
+            lastUpdate = timestamp;
+        }
+        requestAnimationFrame(updateLoop);
+    }
+
+    fetchScore();
+    requestAnimationFrame(updateLoop);
+
+    window.addEventListener('focus', () => {
+        fetchScore();
+    });
+</script>
+</body>
+</html>

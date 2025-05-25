@@ -1,0 +1,30 @@
+# จะเป็นกำหนดชื่อผู้เล่น ที่จะได้รับเพชร ถ้าไม่เปลี่ยน มันจะสุ่มคนได้รับ
+displayMode: off # เริ่มต้นเป็น off (ปิดการแสดงผล)
+countdownSeconds: 15
+priorityPlayer: AVOxSSR
+prefix: "Diamond" # คำนำหน้าคะแนน ถ้าปล่อยว่างจะแสดงแค่ตัวเลข เช่น 0/60
+effectEnabled: true
+webOverlayPort: 3001 # พอร์ตสำหรับ Web Overlay (ใช้ใน OBS)
+overlay:
+  color: "#FFFFFF" # สีของตัวเลขและเครื่องหมาย / ใน Web Overlay (ใช้รหัสสี Hex เช่น #FF0000 = แดง)
+  shadowColor: "#000000" # สีของขอบตัวเลขและเครื่องหมาย / ใน Web Overlay (ใช้รหัสสี Hex เช่น #000000 = ดำ, ขอบแบบคมชัด)
+# สีสำหรับแต่ละโหมด (ใช้รหัสสี Minecraft เช่น §6 = สีเหลืองทอง, §b = สีฟ้า)
+# ตัวอย่างสี:
+# §a = เขียวอ่อน
+# §b = ฟ้า
+# §c = แดง
+# §d = ชมพูอ่อน
+# §e = เหลือง
+# §f = ขาว
+# §6 = เหลืองทอง
+# §9 = น้ำเงิน
+bossbar:
+  color: "§6"
+subtitle:
+  color: "§6"
+scoreboard:
+  titleColor: "§b"
+  diamondColor: "§6"
+  scoreColor: "§b"
+actionbar:
+  color: "§6"
